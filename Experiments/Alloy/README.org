@@ -1,2 +1,62 @@
 #+TITLE: Experiments with Alloy
 
+* Installing Alloy
+
+Load latest build from [[https://alloytools.org/download.html][here]]. The experiments described below have been made
+with Alloy Tools version 5.1. After downloading org.alloytools.alloy.dist.jar,
+run =java -jar org.alloytools.alloy.dist.jar &= then open one of the *als files.
+
+Useful documentation about Alloy:
+
+- https://alloy.readthedocs.io/en/latest/index.html
+
+- https://alloytools.org/tutorials/day-course/ (in particular the slides)
+
+
+* Running Experiments
+
+Short intro into the file structure: The file consists of three sections
+
+- Signatures: Defines the classes (=sig=) and their attributes
+- Functions and facts: Functions and predicates (=pred=) are just
+  abbreviations used elsewhere. Facts (=fact=) are propositions assumed to
+  hold unconditionally in the model and are used in any case in the set of
+  propositions submitted to the model checker.
+- Predicates to check: they may introduce other predicates (as shorthands)
+  that are then submitted to the model checker (together with the global facts
+  of the second section). Predicates may be parameterized (parameters in angle
+  brackets). Analyze with =run= (search for a satisfying instance of the
+  proposition; if there is none, the proposition can be assumed to be false)
+  or with =check= (search for a counterexample of the proposition; if there is
+  none, the proposition can be assumed to be true).
+
+Note: in the above, "can be assumed to be" means: Alloy only checks for models
+of finite cardinality (not quite clear how many ...). The absence of a
+counterexample is here not a proof of validity.
+
+Short intro into running the experiments:
+
+- Open an *als file.
+- Go to the "predicates" section of the file.
+- Comment in the predicate / property you want to check (if not already done).
+- Click on Execute in the title bar.
+- If Alloy responds with "found", click on Show to display the satisfying
+  instance / countermodel.
+
+* Experiments
+
+** Child residence
+
+The general problem is described here:
+https://docs.google.com/document/d/1ULGn3GPEmUolkDtr3-AxmCiCSeOYqHkkBW_nIA4feFY/edit#
+
+
+- =child_not_in_parent_residence=: Formalizes the fact: "A minor child shares
+  the residence of its parents; it does not share the residence of a parent
+  who lacks the right to care for the person of the child." This fact is here
+  formalized without any deontic notions (is obliged to etc.).
+  /Possible variants:/ "shares the residence" is here interpreted as: "has
+  exactly the same residences as". Possible different interpretations are
+  indicated on the GoogleDoc.
+
+
