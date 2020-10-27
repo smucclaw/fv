@@ -1,0 +1,59 @@
+#+TITLE: Experiments with Uppaal
+
+* Installing Uppaal
+
+Download from http://www.uppaal.org/.
+
+* Running Experiments
+
+Start Uppaal with =java -jar uppaal.jar &=, then =File / Open system=. Load a
+model (=*xml=) file. The view typically opens on the Editor tab (system
+definition with several automata). On the Simulator tab, one can execute the
+system by stepping through a scenario. On the Verifier tab, one finds several
+"queries" (corresponding to proof obligations). These are contained in the
+=*q= file associated with the model file. Select one of the formulas and
+verify it by clicking on the Check button. In order to obtain a
+counter-example, select "Options / Diagnostic Trace" and then one of Some /
+Shortest / Fastest. On the next Check, the counterexample will be loaded into
+the Simulator.
+
+
+*Note* concerning versions: the =*xml= / =*q= file distinction has been given
+up in more recent versions of Uppaal. Now, both the model and the properties
+to be verified are stored in an =*xml= file.
+
+* Experiments
+
+- =alice_gov_agency=  (in Uppaal 4.0) is a model of a problem posted by Meng on Slack on
+  2020-09-07 on the DSL thread: A third example, which I just made up: If
+  Alice wants to apply for a Permit P to perform Restricted Action RA from
+  Government Agency GA, she must first apply for a Token T from Government
+  Agency GB. Upon receipt of T, agency GA is required to issue the Permit
+  within 7 days. The earliest one can apply for T is 14 days before the RA is
+  planned to occur. Government agency GB is required to issue token T within
+  10 days of application. The exercise: demonstrate that even if Alice plays a
+  perfect game, it is possible for her to lose. Trivial example: GB issues T
+  after 9 days; GA issues P after 6 days; by then, the date for RA has passed.
+
+- =deon_bike.xml= (in Uppaal 4.1) models the bike sale example of
+  https://docs.deondigital.com/latest/src/guidechapters/yourfirstcontract.html. Each
+  of the parties (Buyer / Seller) is modeled as a separate automaton. The
+  automata synchronize via channels order and delivery. They can furthermore
+  exchange values through the parameters of the automata (=order_amount=,
+  =order_item=, =delivery_item=). As compared to the Deon model, the Uppaal
+  model is more explicit regarding failure states (not clear what happens, for
+  example, if the =order.amount= is too small - does the execution get
+  stuck?). It seems more plausible for the scenario if there are separate
+  states =accepted_item= and =rejected_item= following =received_item= because
+  =delivery= is an event initiated by the Seller and thus can hardly be
+  prevented by the Buyer if the delivered item is not the same as the ordered
+  item. 
+
+*To be done*: Replace "flat" scalar automata parameters by records immitating class
+ instances.  Explore the use of functions, as the function =checkOffer= in
+ Deon. 
+
+*Major problem* with Uppaal (apparently, to be checked): The process-local
+ declarations (such as =amount=) have to be initialized and cannot be left
+ "open" as existential boolean or numeric variables. Therefore, Uppaal cannot
+ infer values for these variables that would make certain goals reachable.
