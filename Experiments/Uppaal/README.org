@@ -49,6 +49,9 @@ to be verified are stored in an =*xml= file.
   prevented by the Buyer if the delivered item is not the same as the ordered
   item. 
 
+- =deon_bike_select.xml= is as =deon_bike.xml= but uses select statements on
+  the transitions.
+
 *To be done*: Replace "flat" scalar automata parameters by records immitating class
  instances.  Explore the use of functions, as the function =checkOffer= in
  Deon. 
@@ -56,4 +59,6 @@ to be verified are stored in an =*xml= file.
 *Major problem* with Uppaal (apparently, to be checked): The process-local
  declarations (such as =amount=) have to be initialized and cannot be left
  "open" as existential boolean or numeric variables. Therefore, Uppaal cannot
- infer values for these variables that would make certain goals reachable.
+ infer values for these variables that would make certain goals
+ reachable. Problem solved in =deon_bike_select.xml= 
+

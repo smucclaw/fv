@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+chan order, delivery;
+clock delay;
+const int max_delay = 50;
+
+</declaration>
+	<template>
+		<name x="5" y="5">Buyer</name>
+		<parameter>int[0, 200] &amp;order_amount, bool &amp;order_item, bool &amp;delivery_item</parameter>
+		<declaration>// Place local declarations here.
+//int[0, 200] amount = 105;
+//bool buyer_item = true;
+</declaration>
+		<location id="id0" x="-714" y="-212">
+			<name x="-724" y="-246">start</name>
+		</location>
+		<location id="id1" x="-476" y="-212">
+			<name x="-510" y="-246">sent_order</name>
+		</location>
+		<location id="id2" x="-255" y="-212">
+			<name x="-298" y="-246">received_item</name>
+		</location>
+		<location id="id3" x="-85" y="-340">
+			<name x="-60" y="-349">accepted_item</name>
+		</location>
+		<location id="id4" x="-76" y="-118">
+			<name x="-51" y="-127">rejected_item</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id4"/>
+			<label kind="guard" x="-237" y="-199">order_item != delivery_item or
+delay  &gt; max_delay</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-161" y="-297">order_item == delivery_item and
+delay &lt;= max_delay</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-399" y="-238">delivery?</label>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="select" x="-680" y="-272">buyer_item : int[0,1],
+buyer_amount : int[0, 200]</label>
+			<label kind="synchronisation" x="-637" y="-238">order!</label>
+			<label kind="assignment" x="-680" y="-204">order_item = buyer_item,
+order_amount = buyer_amount</label>
+		</transition>
+	</template>
+	<template>
+		<name>Seller</name>
+		<parameter>int[0, 200] &amp;order_amount, bool &amp;order_item, bool &amp;delivery_item</parameter>
+		<declaration>//bool seller_item = true;</declaration>
+		<location id="id5" x="-773" y="-187">
+			<name x="-783" y="-221">start</name>
+		</location>
+		<location id="id6" x="-510" y="-187">
+			<name x="-552" y="-221">received_order</name>
+		</location>
+		<location id="id7" x="-212" y="-187">
+			<name x="-246" y="-221">sent_item</name>
+		</location>
+		<location id="id8" x="-510" y="-25">
+			<name x="-493" y="-34">failed_order</name>
+		</location>
+		<init ref="id5"/>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-646" y="-102">order_amount  &lt; 100</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="select" x="-399" y="-238">seller_item : int[0, 1]</label>
+			<label kind="guard" x="-408" y="-178">order_amount &gt;= 100</label>
+			<label kind="synchronisation" x="-366" y="-212">delivery!</label>
+			<label kind="assignment" x="-416" y="-161">delivery_item = seller_item</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-680" y="-212">order?</label>
+		</transition>
+	</template>
+	<system>int[0, 200] order_amount;
+bool order_item, delivery_item; 
+
+Alice = Buyer(order_amount, order_item, delivery_item);
+Bob = Seller(order_amount, order_item, delivery_item);
+system Alice, Bob;
+</system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; Bob.failed_order and Alice.accepted_item</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Bob.sent_item and Alice.rejected_item and delay &lt; 50</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Bob.sent_item and Alice.accepted_item</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; Bob.failed_order</formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
