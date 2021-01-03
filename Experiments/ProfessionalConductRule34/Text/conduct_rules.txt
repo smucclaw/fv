@@ -1,0 +1,307 @@
+
+----------------------------------------------------------------------
+Terminology, subsumption and synonymes:
+----------------------------------------------------------------------
+
+Terminology and subsumption (unary predicates)
+-----------------------------------------------
+Remarks:
+* in the following, "<=" means: is a subconcept / subclass of
+
+* not clear which of the following should hold (both chosen in Protege)
+Business <= Activity  
+Business <= Company
+
+
+MainPractice, RelatedPractice <= LawPractice <= Business
+Business_34_9 <= Business
+JointLawVenture <= Business
+
+LawRelatedService <= Service
+
+LocumSolicitor <= LegalPractitioner <= Person
+Owner <= Person
+
+ExecutiveAppointment <= Job
+
+BusinessEntity <= Company
+
+
+Synonyms:
+--------------------
+practice of law = LawPractice
+
+
+
+Variable names:
+--------------------
+acv: activity
+app: executive appointment
+bse: business entity
+bsn: business
+cmp: company
+lpr: legal practitioner
+mpr: main practice
+own: owner
+prc: law practice
+prs: person
+rpr: related practice
+srv: service
+
+
+
+----------------------------------------------------------------------
+
+Essential predicates:
+--------------------
+MustNotAcceptApp(lpr, app)
+MayAcceptApp(lpr, app)
+
+AssociatedWith(app, bsn):
+         appointment associated with business / business entity / law practice
+         Note: maybe make difference between association: appointment - business (entity)
+         and association: appointment - law practice
+Employment(lpr, prc):
+         employment relation between a person and a business
+         specialized to:
+LPRMainEmployment(lpr, prc)
+         Legal practitioner is employed by / works for a law practice as main practice
+LPRRelatedEmployment(lpr, prc)
+         Legal practitioner is employed by / works for a law practice as
+         related practice
+         
+... and lots of "on the fly" predicates
+
+
+Defined predicates in (34 - 9):
+Business(bsn)               -- seems to refer to an activity
+BusinessEntity(bsn)         -- seems to refer to a company
+ExecutiveAppointment(app)   -- "position associated with business or in a business entity"
+LawRelatedService(srv)
+
+
+
+
+Rules as 1st-order-formulas:
+--------------------
+
+(34 - 1 - a)
+AssociatedWith(app, bsn) & IncompatibleDignity(bsn)
+-->
+MustNotAcceptApp(lpr, app)
+
+(34 - 1 - b)
+AssociatedWith(app, bsn) & 
+  (InterferesWithPrimaryOccupationLawyer(bsn, lpr) |
+  InterferesWithAvailability(bsn, lpr) |
+  InterferesWithRepresentationClient(bsn, lpr))
+-->
+MustNotAcceptApp(lpr, app)
+
+(34 - 1 - c)
+AssociatedWith(app, bsn) & UnfairlyAttractBusiness(bsn)
+-->
+MustNotAcceptApp(lpr, app)
+
+(34 - 1 - d)
+[not clear: "unauthorized person": what does the lack of authorization refer to?]
+AssociatedWith(app, bsn) & 
+PaymentOfFeeToFor(prs, bsn) & Unauthorised(prs, bsn)
+-->
+MustNotAcceptApp(lpr, app)
+
+(34 - 1 - e) not modeled
+(34 - 1 - f) not modeled
+
+
+--------------------
+Rather summarize the above as:
+--------------------
+(34 - 1)
+Remarks:
+* not formalized: (34 - 1 - e) and (34 - 1 - f). 
+The same predicate reappears in (34 - 2 - b)
+
+
+InacceptableApp_34_1(lpr, app) = 
+  (\exists bsn. AssociatedWith(app, bsn) & IncompatibleDignity(bsn))       
+| (\exists bsn. AssociatedWith(app, bsn) & 
+          (InterferesWithPrimaryOccupationLawyer(bsn, lpr) |
+           InterferesWithAvailability(bsn, lpr) |
+           InterferesWithRepresentationClient(bsn, lpr)))
+| (\exists bsn. AssociatedWith(app, bsn) & UnfairlyAttractBusiness(bsn))
+| (\exists bsn prs. AssociatedWith(app, bsn) & PaymentOfFeeToFor(prs, bsn) & Unauthorised(prs, bsn))
+
+InacceptableApp_34_1(lpr, app)
+-->
+MustNotAcceptApp(lpr, app)
+
+
+
+--------------------
+(34 - 2)
+Remarks:
+* "if the related practice ...": is this an if or iff?
+  This is rather a question of a general nature
+       (are permissions only related to explicitly enumerated cases?)
+* what about non-Singapore law practices?
+* SoleProprietor: might be difficult to express with a negation-as-failure semantics
+* MustNotInvolvement34_2_b: also see (34 - 1 - f)
+
+
+ConnectedAccording34_2(lpr, rpr, mpr, app) =
+    LPRMainEmployment(lpr, mpr) & 
+    LPRRelatedEmployment(lpr, rpr) & 
+    (\forall own. LegalOwner(own, rpr) | BeneficialOwner(own, rpr)
+              --> SoleProprietor(own, mpr) | Partner(own, mpr) | Director(own, mpr))
+  | (Representative(lpr, app, mpr, rpr) & MustNotInvolvement34_2_b(mpr, rpr))
+
+
+
+~ InacceptableApp_34_1(lpr, app) &
+AssociatedWith(app, rpr) &
+ConnectedAccording34_2(lpr, rpr, mpr, app) & 
+SingaporeBased(rpr) &
+SingaporeBased(mpr) 
+-->
+MayAcceptApp(lpr, app)
+
+
+
+--------------------
+(34 - 3)
+Remarks:
+* "in a business entity which provides law-related services" is not clear:
+(1) which only provides law-related services
+(2) there exist law-related services
+(the translation below, even though this is maybe not the intended interpretation)
+* Possible inconsistency: an appointment may be acceptable according to (34 - 1),
+take place in a "related practice" which does  not satisfy the requirements
+according to (34 - 2) if the related practice is a business entity satisfying
+the conditions of (34 - 3).
+
+~ InacceptableApp_34_1(lpr, app) &
+TakesPlaceIn(app, bse) &
+Provides(bse, srv) & LawRelated(srv)
+-->
+MayAcceptApp(lpr, app)
+
+
+
+--------------------
+(34 - 4)
+Remarks:
+* Still to be defined: ConditionsSecondSchedule
+* Concerning requirements in Second Schedule: these set up requirements for
+declarations to be made during the course of the contract (Second Schedule pt
+(5)). Since this concerns a future event, this cannot be a precondition of the
+appointment. At best, one can require an engagement by the practitioner to
+make these declarations in the future.
+
+MayAcceptApp_34_4(lpr, app) = 
+~ InacceptableApp_34_1(lpr, app) &
+LegalPractitioner(lpr) & ~ LocumSolicitor(lpr) &
+(\forall bse. BusinessEntity(bse) -->
+    AssociatedWith(app, bse) --> 
+   ~ (\exists srv. Provides(bse, srv) & LawRelated(srv)) &
+   ConditionsSecondSchedule(lpr, bse))
+
+MayAcceptApp_34_4(lpr, app)
+-->
+MayAcceptApp(lpr, app)
+
+
+
+
+--------------------
+(34 - 5)
+Remarks:
+* incomplete as some conditions of (34 - 1) have not been modeled
+* phrase "subject to paragraph (1)(a) and (c) to (f)" is translated as the
+negation of the preconditions that stipulate an interdiction
+* semantically, the phrase "despite paragraph (1)(b)" is not clear. 
+
+
+~ (AssociatedWith(app, bsn) & IncompatibleDignity(bsn)) &
+~ (AssociatedWith(app, bsn) & UnfairlyAttractBusiness(bsn)) &
+LocumSolicitor(lpr) &
+~ (\exists srv. Provides(bse, srv) & LawRelated(srv)) &
+ConditionsSecondSchedule(lpr, bse)
+-->
+MayAcceptApp(lpr, app)
+
+
+--------------------
+(34 - 6)
+
+ExecAppointmentOtherSGLawPractice_34_6a(lpr, app) =
+LPRMainEmployment(lpr, mpr) & SingaporeBased(mpr) &
+(\exists rpr. AssociatedWith(app, rpr) & SingaporeBased(rpr) & mpr != rpr)
+
+ExecAppointmentBSE_34_6b(lpr, app) = AssociatedWith(app, bsn) & BusinesssEntity(bsn)
+
+LegalPractitioner(lpr) & ExecutiveAppointment(app) &
+(
+~ MayAcceptApp_34_2(lpr, app) &
+~ MayAcceptApp_34_3(lpr, app) &
+~ MayAcceptApp_34_4(lpr, app) &
+~ MayAcceptApp_34_5(lpr, app) 
+) &
+(ExecAppointmentOtherSGLawPractice_34_6a(lpr, app) |
+ ExecAppointmentBSE_34_6b(lpr, app)
+)
+-->
+MustNotAcceptApp(lpr, app)
+
+
+--------------------
+(34 - 9)
+See also Terminology above
+
+-- more compactly: Business_34_9 <= Business
+\forall acv. Business_34_9(acv) --> Business(acv)
+
+-- more compactly: disjoint(Business_34_9, LawPractice)
+\forall acv. Business_34_9(acv) --> ~ LawPractice(acv)
+
+-- more compactly: BusinessEntity <= Company
+\forall cmp. BusinessEntity(cmp) --> Company(cmp)
+
+-- more compactly:
+-- disjoint(BusinessEntity, LawPractice)
+-- disjoint(BusinessEntity, JointLawVenture)
+-- disjoint(BusinessEntity, InstitutionThirdSchedule)
+
+\forall cmp. BusinessEntity(cmp) -->
+        ~ LawPractice(cmp) &
+        ~ JointLawVenture(cmp) &
+        ~ ThirdSchedule(cmp)
+
+\forall cmp. ThirdSchedule(cmp) =
+        (cmp = Society | cmp = Academy | cmp = Institute 
+         cmp = NUS | cmp = SMU | cmp = SUSS)
+
+
+\forall srv. LawRelatedService(srv) = (Service(srv) & FourthSchedule(srv))
+
+\forall srv. FourthSchedule(srv) = ....
+
+Remark concerning "executive appointment": not clear whether it is better
+defined as a unary predicate (specializing "Job" or "Contract") or as a
+relation (between a person and a company). We take the first interpretation,
+with two relations
+AssociatedWith(app, bsn)     -- appointment is associated with business
+Holder(prs, app)             -- person is holder of appointment
+
+
+\forall app. ExecutiveAppointment(app) =
+        Job(app) &
+        (\exists bsn. (Business(bsn) | BusinessEntity(bsn) | SingaporeLawPractice(bsn)) &
+                      AssociatedWith(app, bsn) &
+                      (\forall prs. Holder(prs, app) -->
+                               Executive(prs, bsn) & ~ NonExecOrIndepDir(prs, bsn)))
+
+Some more remarks concerning this def:
+* if LawPractice is a subclass of Business, the above disjunction is redundant
+* dubious typing if Business and BusinessEntity are "incompatible" (one being
+an activity and the other a company)

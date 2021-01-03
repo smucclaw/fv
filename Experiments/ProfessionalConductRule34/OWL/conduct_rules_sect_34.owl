@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#"
+     xml:base="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#AssociatedWith -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#AssociatedWith">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#ExecutiveAppointment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Employment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Employment">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Holder -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Holder">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Person"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#ExecutiveAppointment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LPRMainEmployment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LPRMainEmployment">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Employment"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LegalPractitioner"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LawPractice"/>
+        <rdfs:comment>Principal Employment of a legal practitioner</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LPRRelatedEmployment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LPRRelatedEmployment">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Employment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Activity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Activity"/>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Activity"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#BusinessEntity -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#BusinessEntity">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business_34_9 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business_34_9">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Country -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Country">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Location"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#ExecutiveAppointment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#ExecutiveAppointment">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Job"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#FourthSchedule -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#FourthSchedule">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Service"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Job -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Job">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#JointLawVenture -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#JointLawVenture">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LawPractice -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LawPractice">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Business"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LawRelatedService -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LawRelatedService">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Service"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LegalPractitioner -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LegalPractitioner">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Person"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LPRMainEmployment"/>
+                <owl:maxQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxQualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LawPractice"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Location -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Location"/>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LocumSolicitor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LocumSolicitor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#LegalPractitioner"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Organization -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Organization"/>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Person"/>
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Service -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Service">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Singapore -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/strecker/ontologies/2021/0/untitled-ontology-32#Singapore"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
