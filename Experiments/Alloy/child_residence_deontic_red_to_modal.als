@@ -76,7 +76,7 @@ not Perm(r in p.res => r in c.res)
 
 /* A child allowed to live in the same residence as a parent is required to live there.
    * Deontic statement:
-	all c: Child,  p: Parent, r: Residence | is_parent_of[p, c] => r in p.res => Perm(r in c.res) => O(r in c.res)
+	all c: Child,  p: Parent, r: Residence | is_parent_of[p, c] => r in p.res => Perm(r in c.res) => Oblig(r in c.res)
 */
 
 fact in_parent_residence_if_possible {

@@ -58,5 +58,13 @@ https://docs.google.com/document/d/1ULGn3GPEmUolkDtr3-AxmCiCSeOYqHkkBW_nIA4feFY/
   /Possible variants:/ "shares the residence" is here interpreted as: "has
   exactly the same residences as". Possible different interpretations are
   indicated on the GoogleDoc.
-
-
+- =child_residence_deontic_red_to_modal=: Formalizes the above fact and takes
+  the statement "it does not share" as a deontic statement. This formalization
+  tries to reduce deontics to alethic modalities. Attempt not
+  successful. Details in the file itself. 
+- =child_residence_deontic_boolean=: Formalization of obligations with the aid
+  of a boolean variable: Oblig(prop) is translated to O_p -> prop for a fresh
+  boolean O_p. Looks more promising as approach and will serve as working
+  hypothesis. 
+- =socrates=: a simple logical inference (the famous "All humans are mortal;
+  Socrates is a humen; thus Socrates is mortal") coded in Alloy.
