@@ -123,7 +123,7 @@ Remarks:
 The same predicate reappears in (34 - 2 - b)
 
 
-InacceptableApp_34_1(lpr, app) = 
+MustNotAcceptApp_34_1(lpr, app) = 
   (\exists bsn. AssociatedWith(app, bsn) & IncompatibleDignity(bsn))       
 | (\exists bsn. AssociatedWith(app, bsn) & 
           (InterferesWithPrimaryOccupationLawyer(bsn, lpr) |
@@ -132,7 +132,7 @@ InacceptableApp_34_1(lpr, app) =
 | (\exists bsn. AssociatedWith(app, bsn) & UnfairlyAttractBusiness(bsn))
 | (\exists bsn prs. AssociatedWith(app, bsn) & PaymentOfFeeToFor(prs, bsn) & Unauthorised(prs, bsn))
 
-InacceptableApp_34_1(lpr, app)
+MustNotAcceptApp_34_1(lpr, app)
 -->
 MustNotAcceptApp(lpr, app)
 
@@ -158,7 +158,7 @@ ConnectedAccording34_2(lpr, rpr, mpr, app) =
 
 
 
-~ InacceptableApp_34_1(lpr, app) &
+~ MustNotAcceptApp_34_1(lpr, app) &
 AssociatedWith(app, rpr) &
 ConnectedAccording34_2(lpr, rpr, mpr, app) & 
 SingaporeBased(rpr) &
@@ -203,7 +203,7 @@ MayAcceptApp_34_4(lpr, app) =
 LegalPractitioner(lpr) & ~ LocumSolicitor(lpr) &
 (\forall bse. BusinessEntity(bse) -->
     AssociatedWith(app, bse) --> 
-   ~ (\exists srv. Provides(bse, srv) & LawRelated(srv)) &
+   ~ (\exists srv. Provides(bse, srv) & LawRelatedService(srv)) &
    ConditionsSecondSchedule(lpr, bse))
 
 MayAcceptApp_34_4(lpr, app)

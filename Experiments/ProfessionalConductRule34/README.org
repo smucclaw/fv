@@ -1,0 +1,28 @@
+#+TITLE: Formalizing Professional Conduct Rules Section 34
+
+This is an attempt to formalize Section 34 of the Professional Conduct Rules
+(PCR). The PCR are one of CCLAW's case studies, see 
+https://docs.google.com/document/d/1z-P75cLbZXm8q8MepBAx-zfxmfyyXBJSR79mYOU4g4c/edit#
+
+The legal text itself can be found on https://sso.agc.gov.sg/SL/LPA1966-S706-2015?DocDate=20180209&ValidDate=20180212#pr34-
+
+The following formats are available:
+- FOL: First-order representation, in the TPTP format understood by a variety
+  of provers. Tested here:
+  - EProver (https://www.eprover.org/)
+  - Vampire (https://vprover.github.io/index.html)
+  The formalization is incomplete, mainly because the provers do not produce a
+  readable format for models of satisfiable formula sets. They only produce
+  clause sets after saturation from which one would still have to extract a
+  model, manually.
+- Nunchaku: prover and counter model generator, see description in subdirectory.
+- OWL: terminology. Preliminary step to try to understand the main concepts
+  used in the law text, but OWL is by far not expressive enough to capture
+  the whole text. Uses the standardized OWL format that can directly be read
+  into Protégé (https://protege.stanford.edu/).
+  Joey Lim's help greatly appreciated to clarify the concepts.
+- Text: This is a "free-style" textual format, not directly machine
+  processable. It was the first attempt to understand the rules, with some
+  remarks / questions on problematic points of the rules.
+
+

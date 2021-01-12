@@ -1,0 +1,21 @@
+#+TITLE: Formalisation in Nunchaku
+
+Nunchaku is a prover / counter example generator for first and higher-order
+logic. It is a stand-alone successor of the Nitpick system that is used in the
+Isabelle theorem prover as counter example generator.
+
+The system description is available here:
+https://nunchaku-inria.github.io/nunchaku/
+
+Installation is a bit complex and lengthy as Nunchaku is written in Caml and
+can best be installed via Caml's package manager opam. So the best steps are:
+
+- install opam as described here: http://opam.ocaml.org/
+- install Nunchaku as described here:
+  https://github.com/nunchaku-inria/nunchaku#install
+- for running Nunchaku in a new directory, run =eval `opam config env`= to
+  update the environment variables.
+
+After installation, just invoke the model finder with something like =nunchaku
+professional_conduct_rule_34.nun=
+
