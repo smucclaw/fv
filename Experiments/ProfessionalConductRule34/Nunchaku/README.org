@@ -1,5 +1,7 @@
 #+TITLE: Formalisation in Nunchaku
 
+* Installing and running Nunchaku
+
 Nunchaku is a prover / counter example generator for first and higher-order
 logic. It is a stand-alone successor of the Nitpick system that is used in the
 Isabelle theorem prover as counter example generator.
@@ -19,3 +21,62 @@ can best be installed via Caml's package manager opam. So the best steps are:
 After installation, just invoke the model finder with something like =nunchaku
 professional_conduct_rule_34.nun=
 
+* Formalizations
+
+** Variants of the formalization
+
+- =professional_conduct_rule_34.nun=: Basic version with an incorrect
+  translation of the "despite of" clause. Mutual exclusivity of "may accept" and
+  "must not accept" not provable.
+- =professional_conduct_rule_34_unsat.nun=: Stronger precondition to rule 5,
+  which makes exclusivity of "may accept" and "must not accept" provable.
+  The translation of "despite of" clause is still incorrect.
+- =professional_conduct_rule_34_despite.nun=: Correct translation of the
+  "despite of" clause. Now provable: 
+  - Mutual exclusion of "may accept" and "must not accept".
+
+** Preliminary findings:
+
+Mutual exclusion of "may accept" and "must not accept" is verifiable quickly
+(UNSAT in less than 1 sec). Obviously, when refineing the model (adding more
+formulas), the result remains UNSAT.
+
+In an effort to prove that the conditions are exhaustive (one or the other
+applies and nothing else), the Nunchaku approach shows its limits. The
+condition can be disproved (SAT) quickly for a sketchy domain model. The model
+checker will then generate a model (counterexample of exhaustivity) of size
+one. When trying to explicitly construct a realistic counter example, one
+would like to assume that legal practitioners, business (entities) and
+services are disjoint. The model then has at least size three, and
+Nunchaku does not terminate within the self-imposed time limits (the result is
+then UNKNOWN). 
+
+** Analysis of the dependencies of clauses
+
+This section provides an analysis of the mutual dependency of the clauses as
+given by their "subject to" / "despite" / "notwithstanding" restrictions.
+
+In the following, we use precedence constraints A < B
+(A is a prerequisite of B). We use a set-based shorthand like A < [B1, B2]
+which can be flattened to A < B1 and A < B2.
+
+Principle of translation: 
+- a phrase "subject to R1" in R2 introduces a constraint R1 < R2
+- a phrase "despite R1" / "notwithstanding R1" in R2 introduces a constraint R2 < R1
+- a phrase "except as provided in R1" in R2 introduces a constraint R1 < R2
+
+The constraints derived are:
+- [1a, 1c .. 1f] < 1
+- 1b < 1
+- 1 < 2
+- 1 < 3
+- 1 < 4
+- [1a, 1c .. 1f] < 5
+- 5 < 1b
+- [2 .. 5] < 6
+
+A topological sort of the above constraints yields:
+[1a, 1c .. 1f]  < 5 < 1b  < 1 < [2, 3, 4] < 6
+
+This is the order in which the rules have been linearized in file
+=professional_conduct_rule_34_despite.nun=. 
