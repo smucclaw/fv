@@ -6,6 +6,8 @@ https://docs.google.com/document/d/1z-P75cLbZXm8q8MepBAx-zfxmfyyXBJSR79mYOU4g4c/
 
 The legal text itself can be found on https://sso.agc.gov.sg/SL/LPA1966-S706-2015?DocDate=20180209&ValidDate=20180212#pr34-
 
+See also [[https://github.com/smucclaw/dsl/blob/main/caseStudies/LPAPCR34/][the case study in the dsl repo]]. At some point these will be merged.
+
 The following formats are available:
 - FOL: First-order representation, in the TPTP format understood by a variety
   of provers. Tested here:
