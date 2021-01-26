@@ -3,56 +3,56 @@
 val obj : type.
 
 ### Unary predicates
-val pIncompatibleDignity : obj -> prop.
-val pSingaporeBased : obj -> prop.
+val IncompatibleDignity : obj -> prop.
+val SingaporeBased : obj -> prop.
 
 # Activity
-val pBusiness : obj -> prop.
-val pJointLawVenture : obj -> prop.
-val pExecutiveAppointment : obj -> prop.
-val pLawRelatedService : obj -> prop.
+val Business : obj -> prop.
+val JointLawVenture : obj -> prop.
+val ExecutiveAppointment : obj -> prop.
+val LawRelatedService : obj -> prop.
 
 # Organization
-val pBusinessEntity : obj -> prop.
-val pInstitution : obj -> prop.
-val pLawPractice : obj -> prop.
+val BusinessEntity : obj -> prop.
+val Institution : obj -> prop.
+val LawPractice : obj -> prop.
 
 # Person
-val pLegalPractitioner : obj -> prop.
-val pLocumSolicitor : obj -> prop.
+val LegalPractitioner : obj -> prop.
+val LocumSolicitor : obj -> prop.
 
 
 ### Binary predicates
 
 # 34_1
-val pAssociatedWith : obj -> obj -> prop. # executive appointment associated with business or business entity or institution
-val pInterferesWithPrimaryOccupationLawyer : obj -> obj -> prop.
-val pInterferesWithAvailability : obj -> obj -> prop.
-val pInterferesWithRepresentationClient : obj -> obj -> prop.
-val pUnfairlyAttractBusiness : obj -> prop.
-val pPaymentOfFeeToFor : obj -> obj -> prop.
-val pUnauthorised : obj -> obj -> prop.
+val AssociatedWith : obj -> obj -> prop. # executive appointment associated with business or business entity or institution
+val InterferesWithPrimaryOccupationLawyer : obj -> obj -> prop.
+val InterferesWithAvailability : obj -> obj -> prop.
+val InterferesWithRepresentationClient : obj -> obj -> prop.
+val UnfairlyAttractBusiness : obj -> prop.
+val PaymentOfFeeToFor : obj -> obj -> prop.
+val Unauthorised : obj -> obj -> prop.
 
 # 34_2
-val pLPRMainEmployment : obj -> obj -> prop.
-val pLPRRelatedEmployment : obj -> obj -> prop.
-val pLegalOwner : obj -> obj -> prop.
-val pBeneficialOwner : obj -> obj -> prop.
-val pSoleProprietor : obj -> obj -> prop.
-val pPartner : obj -> obj -> prop.
-val pDirector : obj -> obj -> prop.
-val pRepresentative : obj -> obj -> obj -> obj -> prop.
-val pMustNotInvolvement34_2_b : obj -> obj -> prop.
+val LPRMainEmployment : obj -> obj -> prop.
+val LPRRelatedEmployment : obj -> obj -> prop.
+val LegalOwner : obj -> obj -> prop.
+val BeneficialOwner : obj -> obj -> prop.
+val SoleProprietor : obj -> obj -> prop.
+val Partner : obj -> obj -> prop.
+val Director : obj -> obj -> prop.
+val Representative : obj -> obj -> obj -> obj -> prop.
+val MustNotInvolvement34_2_b : obj -> obj -> prop.
 
 # 34_3
-val pProvides : obj -> obj -> prop.
+val Provides : obj -> obj -> prop.
 
 # 34_4
-val pConditionsSecondSchedule : obj -> obj -> prop.
+val ConditionsSecondSchedule : obj -> obj -> prop.
 
 # 34_6
-val pExecAppointmentOtherSGLawPractice_34_6a : obj -> obj -> prop.
-val pExecAppointmentBSE_34_6b : obj -> prop.
+val ExecAppointmentOtherSGLawPractice_34_6a : obj -> obj -> prop.
+val ExecAppointmentBSE_34_6b : obj -> prop.
 
 # Declarations for deriving specific models
 
@@ -63,117 +63,117 @@ val srv1 : obj.
 
 
 # Declaration of functions that were previously defined with a let
-val pMustNotAcceptApp_34_1_without_b : obj -> obj -> prop.
-val pMayAcceptApp_34_5 : obj -> obj -> prop.
-val pMustNotAcceptApp_34_1_b : obj -> obj -> prop.
-val pMustNotAcceptApp_34_1 : obj -> obj -> prop.
-val pConnectedAccording34_2 : obj -> obj -> obj -> obj -> prop.
-val pMayAcceptApp_34_2 : obj -> obj -> prop.
-val pMayAcceptApp_34_3 : obj -> obj -> prop.
-val pMayAcceptApp_34_4 : obj -> obj -> prop.
-val pMayAcceptApp : obj -> obj -> prop.
-val pMustNotAcceptApp_34_6 : obj -> obj -> prop.
-val pMustNotAcceptApp : obj -> obj -> prop.
+val MustNotAcceptApp_34_1_without_b : obj -> obj -> prop.
+val MayAcceptApp_34_5 : obj -> obj -> prop.
+val MustNotAcceptApp_34_1_b : obj -> obj -> prop.
+val MustNotAcceptApp_34_1 : obj -> obj -> prop.
+val ConnectedAccording34_2 : obj -> obj -> obj -> obj -> prop.
+val MayAcceptApp_34_2 : obj -> obj -> prop.
+val MayAcceptApp_34_3 : obj -> obj -> prop.
+val MayAcceptApp_34_4 : obj -> obj -> prop.
+val MayAcceptApp : obj -> obj -> prop.
+val MustNotAcceptApp_34_6 : obj -> obj -> prop.
+val MustNotAcceptApp : obj -> obj -> prop.
 
 goal
 
 ## Domain model
 
-(forall Vprs. pLocumSolicitor Vprs => pLegalPractitioner Vprs) &&
+(forall prs. LocumSolicitor prs => LegalPractitioner prs) &&
 
-# top-level domains different from pLegalPractitioner
-(forall x. ~ (pExecutiveAppointment x && pLegalPractitioner x)) &&
-(forall x. ~ (pBusiness x && pLegalPractitioner x)) &&
-(forall x. ~ (pBusinessEntity x && pLegalPractitioner x)) &&
-(forall x. ~ (pLawRelatedService x && pLegalPractitioner x)) &&
+# top-level domains different from LegalPractitioner
+(forall x. ~ (ExecutiveAppointment x && LegalPractitioner x)) &&
+(forall x. ~ (Business x && LegalPractitioner x)) &&
+(forall x. ~ (BusinessEntity x && LegalPractitioner x)) &&
+(forall x. ~ (LawRelatedService x && LegalPractitioner x)) &&
 
-# top-level domains different from pExecutiveAppointment
-(forall x. ~ (pBusiness x && pExecutiveAppointment x)) &&
-(forall x. ~ (pBusinessEntity x && pExecutiveAppointment x)) &&
-(forall x. ~ (pLawRelatedService x && pExecutiveAppointment x)) &&
+# top-level domains different from ExecutiveAppointment
+(forall x. ~ (Business x && ExecutiveAppointment x)) &&
+(forall x. ~ (BusinessEntity x && ExecutiveAppointment x)) &&
+(forall x. ~ (LawRelatedService x && ExecutiveAppointment x)) &&
 
 ## translation of the rules and statement of the goal
-(forall Vlpr Vapp. pMustNotAcceptApp_34_1_without_b Vlpr Vapp =
-    ((exists Vbsn. pAssociatedWith Vapp Vbsn && pIncompatibleDignity Vbsn)
-  || (exists Vbsn. pAssociatedWith Vapp Vbsn && pUnfairlyAttractBusiness Vbsn)
-  || (exists Vbsn Vprs. pAssociatedWith Vapp Vbsn && pPaymentOfFeeToFor Vprs Vbsn && pUnauthorised Vprs Vbsn))
+(forall lpr app. MustNotAcceptApp_34_1_without_b lpr app =
+    ((exists bsn. AssociatedWith app bsn && IncompatibleDignity bsn)
+  || (exists bsn. AssociatedWith app bsn && UnfairlyAttractBusiness bsn)
+  || (exists bsn prs. AssociatedWith app bsn && PaymentOfFeeToFor prs bsn && Unauthorised prs bsn))
 )
 &&
 (
-forall Vlpr Vapp. pMayAcceptApp_34_5 Vlpr Vapp =
-    (~ pMustNotAcceptApp_34_1_without_b Vlpr Vapp &&
-     pLocumSolicitor Vlpr &&    
-    (forall Vbse. pBusinessEntity Vbse =>
-                  pAssociatedWith Vapp Vbse => 
-                  ~ (exists Vsrv. pLawRelatedService Vsrv && pProvides Vbse Vsrv) &&
-                  pConditionsSecondSchedule Vlpr Vbse)
+forall lpr app. MayAcceptApp_34_5 lpr app =
+    (~ MustNotAcceptApp_34_1_without_b lpr app &&
+     LocumSolicitor lpr &&    
+    (forall bse. BusinessEntity bse =>
+                  AssociatedWith app bse => 
+                  ~ (exists srv. LawRelatedService srv && Provides bse srv) &&
+                  ConditionsSecondSchedule lpr bse)
    )
 )
 &&
 (
-forall Vlpr Vapp. pMustNotAcceptApp_34_1_b Vlpr Vapp = 
-    (~ pMayAcceptApp_34_5 Vlpr Vapp &&
-    (exists Vbsn. pAssociatedWith Vapp Vbsn &&
-          (pInterferesWithPrimaryOccupationLawyer Vbsn Vlpr ||
-           pInterferesWithAvailability Vbsn Vlpr ||
-           pInterferesWithRepresentationClient Vbsn Vlpr)))
+forall lpr app. MustNotAcceptApp_34_1_b lpr app = 
+    (~ MayAcceptApp_34_5 lpr app &&
+    (exists bsn. AssociatedWith app bsn &&
+          (InterferesWithPrimaryOccupationLawyer bsn lpr ||
+           InterferesWithAvailability bsn lpr ||
+           InterferesWithRepresentationClient bsn lpr)))
 )
 &&
 (
-forall Vlpr Vapp. pMustNotAcceptApp_34_1 Vlpr Vapp = 
-    (pMustNotAcceptApp_34_1_without_b Vlpr Vapp || pMustNotAcceptApp_34_1_b Vlpr Vapp)
+forall lpr app. MustNotAcceptApp_34_1 lpr app = 
+    (MustNotAcceptApp_34_1_without_b lpr app || MustNotAcceptApp_34_1_b lpr app)
 )
 &&
 (
 # Conditions for: May accept
 
-forall Vlpr Vrpr Vmpr Vapp. pConnectedAccording34_2 Vlpr Vrpr Vmpr Vapp =
-   (  pLPRMainEmployment Vlpr Vmpr &&
-      pLPRRelatedEmployment Vlpr Vrpr &&
-      (forall Vown. pLegalOwner Vown Vrpr || pBeneficialOwner Vown Vrpr
-                => pSoleProprietor Vown Vmpr || pPartner Vown Vmpr || pDirector Vown Vmpr)
-   || (pRepresentative Vlpr Vapp Vmpr Vrpr && pMustNotInvolvement34_2_b Vmpr Vrpr)
+forall lpr rpr mpr app. ConnectedAccording34_2 lpr rpr mpr app =
+   (  LPRMainEmployment lpr mpr &&
+      LPRRelatedEmployment lpr rpr &&
+      (forall own. LegalOwner own rpr || BeneficialOwner own rpr
+                => SoleProprietor own mpr || Partner own mpr || Director own mpr)
+   || (Representative lpr app mpr rpr && MustNotInvolvement34_2_b mpr rpr)
    )
 )
 &&
 (
-forall Vlpr Vapp. pMayAcceptApp_34_2 Vlpr Vapp = 
-   (~ pMustNotAcceptApp_34_1 Vlpr Vapp &&
-   (exists Vrpr Vmpr. pLawPractice Vrpr && pLawPractice Vmpr && 
+forall lpr app. MayAcceptApp_34_2 lpr app = 
+   (~ MustNotAcceptApp_34_1 lpr app &&
+   (exists rpr mpr. LawPractice rpr && LawPractice mpr && 
     (
-     pAssociatedWith Vapp Vrpr &&
-     pConnectedAccording34_2 Vlpr Vrpr Vmpr Vapp &&
-     pSingaporeBased Vrpr &&
-     pSingaporeBased Vmpr
+     AssociatedWith app rpr &&
+     ConnectedAccording34_2 lpr rpr mpr app &&
+     SingaporeBased rpr &&
+     SingaporeBased mpr
     )
    ))
 )
 &&
 (
-forall Vlpr Vapp. pMayAcceptApp_34_3 Vlpr Vapp =
-   (~ pMustNotAcceptApp_34_1 Vlpr Vapp &&
-    (exists Vbse Vsrv. pBusinessEntity Vbse && pLawRelatedService Vsrv && 
-     pProvides Vbse Vsrv && pAssociatedWith Vapp Vbse)
+forall lpr app. MayAcceptApp_34_3 lpr app =
+   (~ MustNotAcceptApp_34_1 lpr app &&
+    (exists bse srv. BusinessEntity bse && LawRelatedService srv && 
+     Provides bse srv && AssociatedWith app bse)
    )
 )
 &&
 (
-forall Vlpr Vapp. pMayAcceptApp_34_4 Vlpr Vapp =
-   (~ pMustNotAcceptApp_34_1 Vlpr Vapp &&
-    ~ pLocumSolicitor Vlpr &&
-    (forall Vbse. pBusinessEntity Vbse =>
-                  pAssociatedWith Vapp Vbse => 
-                  ~ (exists Vsrv. pLawRelatedService Vsrv && pProvides Vbse Vsrv) &&
-                  pConditionsSecondSchedule Vlpr Vbse)
+forall lpr app. MayAcceptApp_34_4 lpr app =
+   (~ MustNotAcceptApp_34_1 lpr app &&
+    ~ LocumSolicitor lpr &&
+    (forall bse. BusinessEntity bse =>
+                  AssociatedWith app bse => 
+                  ~ (exists srv. LawRelatedService srv && Provides bse srv) &&
+                  ConditionsSecondSchedule lpr bse)
    )
 )
 &&
 (
-forall Vlpr Vapp. pMayAcceptApp Vlpr Vapp =
-     (pMayAcceptApp_34_2 Vlpr Vapp || 
-      pMayAcceptApp_34_3 Vlpr Vapp || 
-      pMayAcceptApp_34_4 Vlpr Vapp ||
-      pMayAcceptApp_34_5 Vlpr Vapp
+forall lpr app. MayAcceptApp lpr app =
+     (MayAcceptApp_34_2 lpr app || 
+      MayAcceptApp_34_3 lpr app || 
+      MayAcceptApp_34_4 lpr app ||
+      MayAcceptApp_34_5 lpr app
      )
 )
 
@@ -182,28 +182,28 @@ forall Vlpr Vapp. pMayAcceptApp Vlpr Vapp =
 
 
 (
-forall Vapp. pExecAppointmentBSE_34_6b Vapp =
-   (exists Vbse. pBusinessEntity Vbse && pAssociatedWith Vapp Vbse)
+forall app. ExecAppointmentBSE_34_6b app =
+   (exists bse. BusinessEntity bse && AssociatedWith app bse)
 )
 &&
 
 (
-forall Vlpr Vapp. pMustNotAcceptApp_34_6 Vlpr Vapp =
+forall lpr app. MustNotAcceptApp_34_6 lpr app =
     ((
-        ~ pMayAcceptApp_34_2 Vlpr Vapp &&
-        ~ pMayAcceptApp_34_3 Vlpr Vapp &&
-        ~ pMayAcceptApp_34_4 Vlpr Vapp &&
-        ~ pMayAcceptApp_34_5 Vlpr Vapp 
+        ~ MayAcceptApp_34_2 lpr app &&
+        ~ MayAcceptApp_34_3 lpr app &&
+        ~ MayAcceptApp_34_4 lpr app &&
+        ~ MayAcceptApp_34_5 lpr app 
        ) &&
-       (pExecAppointmentOtherSGLawPractice_34_6a Vlpr Vapp ||
-        pExecAppointmentBSE_34_6b Vapp 
+       (ExecAppointmentOtherSGLawPractice_34_6a lpr app ||
+        ExecAppointmentBSE_34_6b app 
        )
      )
 )
 &&
 (
-forall Vlpr Vapp. pMustNotAcceptApp Vlpr Vapp =
-     (pMustNotAcceptApp_34_1 Vlpr Vapp || pMustNotAcceptApp_34_6 Vlpr Vapp)
+forall lpr app. MustNotAcceptApp lpr app =
+     (MustNotAcceptApp_34_1 lpr app || MustNotAcceptApp_34_6 lpr app)
 )
 &&
 
@@ -214,18 +214,18 @@ forall Vlpr Vapp. pMustNotAcceptApp Vlpr Vapp =
 # Hence, (forall ...) should be valid and the negation ~(...) should be unsatisfiable.
 # Result: But this is not the case, a countermodel is found
 # Now: UNSAT
-( ~ (forall Vlpr Vapp. 
-     pLegalPractitioner Vlpr =>
-     pExecutiveAppointment Vapp =>
-     (pMayAcceptApp Vlpr Vapp || pMustNotAcceptApp Vlpr Vapp))
+( ~ (forall lpr app. 
+     LegalPractitioner lpr =>
+     ExecutiveAppointment app =>
+     (MayAcceptApp lpr app || MustNotAcceptApp lpr app))
 )
 
 # Check condition:
 # It is consistent to assume that there is acceptable behaviour. Result: SAT
-# (exists Vlpr Vapp. pLegalPractitioner Vlpr && pExecutiveAppointment Vapp && pMayAcceptApp Vlpr Vapp)
+# (exists lpr app. LegalPractitioner lpr && ExecutiveAppointment app && MayAcceptApp lpr app)
 
 # It is consistent to assume that there is inacceptable behaviour. Result: SAT
-# (exists Vlpr Vapp. pLegalPractitioner Vlpr && pExecutiveAppointment Vapp && pMustNotAcceptApp Vlpr Vapp)
+# (exists lpr app. LegalPractitioner lpr && ExecutiveAppointment app && MustNotAcceptApp lpr app)
 
 
 
@@ -234,20 +234,20 @@ forall Vlpr Vapp. pMustNotAcceptApp Vlpr Vapp =
 # Hence, (forall ...) should be valid and the negation ~(...) should be unsatisfiable.
 # Result: UNSAT, so "may accept" and "must not accept" are indeed mutually exclusive.
 # (
-#   ~ (forall Vlpr Vapp .
-#      pLegalPractitioner Vlpr =>
-#      pExecutiveAppointment Vapp =>
-#      ~ (pMayAcceptApp Vlpr Vapp && pMustNotAcceptApp Vlpr Vapp))
+#   ~ (forall lpr app .
+#      LegalPractitioner lpr =>
+#      ExecutiveAppointment app =>
+#      ~ (MayAcceptApp lpr app && MustNotAcceptApp lpr app))
 # )
 
 # Check condition expressed by rule 34_7:
 # it is consistent to assume that a practictioner may accept an appointment in an institution.
 # Result: indeed, a satisfying assignment is found for the following:
-# (exists Vlpr Vapp Vins.
-#       pLegalPractitioner Vlpr &&
-#       pExecutiveAppointment Vapp && 
-#       pInstitution Vins && 
-#       pAssociatedWith Vapp Vins && pMayAcceptApp Vlpr Vapp
+# (exists lpr app ins.
+#       LegalPractitioner lpr &&
+#       ExecutiveAppointment app && 
+#       Institution ins && 
+#       AssociatedWith app ins && MayAcceptApp lpr app
 # )
 
 # Regarding condition expressed by rule 34_8: The notion of formation of an
@@ -259,14 +259,14 @@ forall Vlpr Vapp. pMustNotAcceptApp Vlpr Vapp =
 # ~ (app1 = bsn1) && ~ (app1 = lpr1) && ~ (app1 = srv1) &&
 # ~ (bsn1 = lpr1) && ~ (bsn1 = srv1) &&
 # ~ (lpr1 = srv1) &&
-# pExecutiveAppointment app1 &&
-# pBusinessEntity bsn1 &&
-# pLegalPractitioner lpr1 && ~ pLocumSolicitor lpr1 &&
-# pLawRelatedService srv1 &&
-# pAssociatedWith lpr1 app1 &&
-# pProvides bsn1 srv1 &&
-# ~ pMayAcceptApp lpr1 app1 &&
-# ~ pMustNotAcceptApp lpr1 app1
+# ExecutiveAppointment app1 &&
+# BusinessEntity bsn1 &&
+# LegalPractitioner lpr1 && ~ LocumSolicitor lpr1 &&
+# LawRelatedService srv1 &&
+# AssociatedWith lpr1 app1 &&
+# Provides bsn1 srv1 &&
+# ~ MayAcceptApp lpr1 app1 &&
+# ~ MustNotAcceptApp lpr1 app1
 
 
 ).
