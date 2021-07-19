@@ -52,6 +52,10 @@ to be verified are stored in an =*xml= file.
 - =deon_bike_select.xml= is as =deon_bike.xml= but uses select statements on
   the transitions.
 
+- =pdpa.xml= The PDPA case study 
+  https://drive.google.com/drive/folders/1zP9IGW88XQ_4qoPbsQXIn4I3IcSElIuZ 
+  in Uppaal
+
 *To be done*: Replace "flat" scalar automata parameters by records immitating class
  instances.  Explore the use of functions, as the function =checkOffer= in
  Deon. 

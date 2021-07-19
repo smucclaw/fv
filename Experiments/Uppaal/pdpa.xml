@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+
+// const bool isNotifiable = true ;
+
+bool isNotifiable;
+
+chan notifyPDPC, notifyIndiv, mustNotifyIndiv, mustNotNotifyIndiv;
+
+clock cl;   // clock reset at specific events
+clock gt;   // global time
+</declaration>
+	<template>
+		<name>Commission</name>
+		<location id="id0" x="0" y="42">
+			<name x="-10" y="8">notifIndivRequested</name>
+		</location>
+		<location id="id1" x="-544" y="-8">
+			<name x="-603" y="-51">acceptingNotification</name>
+		</location>
+		<location id="id2" x="-280" y="-8">
+			<name x="-290" y="-42">evaluatingNotification</name>
+		</location>
+		<location id="id3" x="0" y="-119">
+			<name x="-10" y="-153">notifIndivProhibited</name>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id0"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-459" y="0">notifyPDPC?</label>
+		</transition>
+	</template>
+	<template>
+		<name>Individual</name>
+		<location id="id4" x="0" y="0">
+			<name x="-25" y="-34">ignorant</name>
+		</location>
+		<location id="id5" x="238" y="0">
+			<name x="212" y="-34">informed</name>
+		</location>
+		<init ref="id4"/>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="93" y="8">notifyIndiv?</label>
+		</transition>
+	</template>
+	<template>
+		<name x="5" y="5">Organisation</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id6" x="-280" y="-136">
+			<name x="-290" y="-170">breachDetected</name>
+		</location>
+		<location id="id7" x="187" y="-136">
+			<name x="177" y="-170">pdpcNotified</name>
+		</location>
+		<location id="id8" x="-85" y="-136">
+			<name x="-95" y="-170">breachDeterminedNotifiable</name>
+		</location>
+		<location id="id9" x="441" y="-136">
+			<name x="391" y="-178">individualNotified</name>
+		</location>
+		<location id="id10" x="-280" y="76">
+			<name x="-348" y="93">notificationNotRequired</name>
+		</location>
+		<location id="id11" x="-501" y="-136">
+			<urgent/>
+		</location>
+		<init ref="id11"/>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id6"/>
+			<label kind="select" x="-476" y="-170">selectNotifiable : int [0,1]</label>
+			<label kind="assignment" x="-483" y="-136">isNotifiable = selectNotifiable</label>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="263" y="-127">notifyIndiv!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id10"/>
+			<label kind="guard" x="-340" y="0">not isNotifiable</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-25" y="-119">cl &lt;= 3</label>
+			<label kind="synchronisation" x="-34" y="-93">notifyPDPC!</label>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-263" y="-119">isNotifiable and cl &lt;= 30</label>
+			<label kind="assignment" x="-221" y="-93">cl := 0</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+C = Commission();
+I = Individual();
+O = Organisation();
+// List one or more processes to be composed into a system.
+system C, I, O;
+    </system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; I.informed and C.notifIndivRequested</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; I.informed and C.notifIndivProhibited</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A&lt;&gt; O.notificationNotRequired or O.individualNotified</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>isNotifiable --&gt; O.individualNotified</formula>
+			<comment>If a breach occurs, notificationCompleted is always reachable. 
+Property is satisfied, which is surprizing, because nothing forces a transition from pdpcNotified.</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (isNotifiable and O.individualNotified)</formula>
+			<comment>incomprehensible: property not satisfied</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (O.individualNotified or O.notificationNotRequired)</formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
