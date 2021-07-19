@@ -1,5 +1,6 @@
-% run with:
+% run with either of:
 %    eprover --auto --tptp3-format --proof-object professional_conduct_rule_34.p > professional_conduct_rule_34.out
+%    vampire --mode casc_sat professional_conduct_rule_34.p
 
 
 % not modeled: (34 - 1 - e) and (34 - 1 - f)

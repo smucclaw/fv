@@ -82,7 +82,8 @@ goal
 (forall prs. LocumSolicitor prs => LegalPractitioner prs) &&
 
 # top-level domains different from LegalPractitioner
-(forall x. ~ (ExecutiveAppointment x && LegalPractitioner x)) &&
+# NB: explicit typing possible
+(forall (x : obj). ~ (ExecutiveAppointment x && LegalPractitioner x)) &&
 (forall x. ~ (Business x && LegalPractitioner x)) &&
 (forall x. ~ (BusinessEntity x && LegalPractitioner x)) &&
 (forall x. ~ (LawRelatedService x && LegalPractitioner x)) &&
