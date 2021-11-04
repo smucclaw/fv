@@ -1,1 +1,10 @@
 #+TITLE: Experiments with formal verification with different tools
+
+- Alloy: A model checker for exploring structural properties (relations
+  between persons etc.). No arithmetic reasoning, no direct temporal reasoning
+  (the latter could be coded for qualitative but not quantitative timing). 
+- Uppaal: a temporal model checker (quantitative timing). 
+- ProfessionalConductRule34: This is not a tool properly speaking, but an
+  attempt to represent Section 34 of the Professional Conduct Rules in
+  different formalisms.
+
