@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>chan launch_app, request_access, receive_access, enter;
+
+</declaration>
+	<template>
+		<name>Aut</name>
+		<declaration>bool access_granted;
+
+clock clock0, clock1;</declaration>
+		<location id="id0" x="-407" y="-42">
+			<name x="-417" y="-72">start</name>
+		</location>
+		<location id="id1" x="-204" y="-42">
+			<name x="-255" y="-84">awaiting_access</name>
+			<label kind="invariant" x="-255" y="-25">clock1 &lt;= 4</label>
+		</location>
+		<location id="id2" x="85" y="-33">
+			<name x="76" y="-75">request_pending</name>
+			<label kind="invariant" x="75" y="-18">clock1 &lt;= 5</label>
+		</location>
+		<location id="id3" x="-195" y="162">
+			<name x="-238" y="179">entered_system</name>
+		</location>
+		<init ref="id0"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id3"/>
+			<label kind="guard" x="-323" y="86">clock0 == 7 &amp;&amp;  access_granted</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="guard" x="-94" y="35">clock1 &gt;= 3</label>
+			<label kind="assignment" x="-102" y="52">access_granted = true</label>
+			<nail x="-51" y="18"/>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="guard" x="-119" y="-109">clock1 &gt;= 3</label>
+			<label kind="assignment" x="-119" y="-92">clock1 = 0</label>
+			<nail x="-68" y="-75"/>
+		</transition>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id1"/>
+		</transition>
+	</template>
+	<system>
+system Aut;</system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; Aut.entered_system</formula>
+			<comment></comment>
+		</query>
+	</queries>
+</nta>
