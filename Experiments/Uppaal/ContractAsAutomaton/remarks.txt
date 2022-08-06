@@ -1,0 +1,37 @@
+Notation:
+
+FG automaton / contract: in the Flood-Goodenough paper
+
+General remarks:
+
+* In the Uppaal formalisation, activities have been named with verbs and
+  states with nouns.
+
+* Some redundancies in the FG automaton: for each default of payment, 5 states
+  are duplicated (including "Payment (1/2) accruing", which is anyway an
+  artifact). Only difference: loop back "General default cured" for Payment
+  accruing 1, missing in 2. Why? 
+
+* The global FG automaton contains irrelevant details about reasons of
+  default, at least as far as the lender is concerned. 
+
+
+Difference between written contract and automaton:
+
+* FG automaton: The states Start and Active_contract are not explicit in the
+  written text. Neither are Payment (1/2) accruing. In fact, most part of the
+  automaton has nothing to do with the written text (states about default
+  behavior). 
+
+* Written:
+  Sec. 1: "If Borrower does not make such a request, this agreement will
+  terminate." After which time? This is not represented in automaton.
+
+* Written: Sec. 7 - 11 not represented in automaton
+
+Pitfalls / potential "errors" in the contract:
+
+* Potential infinite loop around Payment 1 accruing, with deadlock if past
+  1/6/2015. 
+
+
