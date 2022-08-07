@@ -13,7 +13,7 @@ General remarks:
   accruing 1, missing in 2. Why? 
 
 * The global FG automaton contains irrelevant details about reasons of
-  default, at least as far as the lender is concerned. 
+  default, at least as far as the lender is concerned.
 
 
 Difference between written contract and automaton:
@@ -29,9 +29,16 @@ Difference between written contract and automaton:
 
 * Written: Sec. 7 - 11 not represented in automaton
 
+* Sec. 5 of the written contract states: "The Borrower will be in default
+  ... provided they [the events] remain uncured within a period of two days
+  after notice is given to Borrower by Lender of their occurrence"
+  However, no statement is made about the obligation by the Borrower to notify
+  Lender of a default.
+  --> The combined-automaton-approach tends to blur obligations and
+  responsibilities. 
+
 Pitfalls / potential "errors" in the contract:
 
 * Potential infinite loop around Payment 1 accruing, with deadlock if past
   1/6/2015. 
-
 

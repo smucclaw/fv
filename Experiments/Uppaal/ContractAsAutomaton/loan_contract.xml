@@ -3,24 +3,24 @@
 <nta>
 	<declaration>// Place global declarations here.
 
-chan sign_contract, request_money, advance_principal, repay1, repay2 ;
+chan sign_contract, request_money, advance_principal, repay550, repay525 ;
 
 clock gt;   // global time
 </declaration>
 	<template>
 		<name x="5" y="5">Borrower</name>
 		<declaration>// Place local declarations here.</declaration>
-		<location id="id0" x="-433" y="-25">
-			<name x="-443" y="-59">Start</name>
+		<location id="id0" x="-85" y="-323">
+			<name x="-95" y="-357">Start</name>
 		</location>
-		<location id="id1" x="-263" y="-25">
-			<name x="-306" y="-76">Active_contract</name>
+		<location id="id1" x="-85" y="-178">
+			<name x="-68" y="-204">Active_contract</name>
 		</location>
 		<location id="id2" x="-83" y="127">
 			<name x="-59" y="119">Principal_received</name>
 		</location>
 		<location id="id3" x="-85" y="-25">
-			<name x="-95" y="-59">Principal_requested</name>
+			<name x="-51" y="-34">Principal_requested</name>
 		</location>
 		<location id="id4" x="-272" y="119">
 			<name x="-282" y="85">Default1</name>
@@ -35,15 +35,24 @@ clock gt;   // global time
 		<location id="id7" x="-255" y="289">
 			<name x="-280" y="247">Default2</name>
 		</location>
+		<location id="id8" x="-289" y="-178">
+			<name x="-299" y="-212">Term_no_money</name>
+		</location>
 		<init ref="id0"/>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id8"/>
+			<label kind="guard" x="-170" y="-204">gt &gt; 0</label>
+		</transition>
 		<transition>
 			<source ref="id5"/>
 			<target ref="id6"/>
+			<label kind="synchronisation" x="-76" y="340">repay525?</label>
 		</transition>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id5"/>
-			<label kind="synchronisation" x="-76" y="204">repay1</label>
+			<label kind="synchronisation" x="-76" y="204">repay550?</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
@@ -62,66 +71,84 @@ clock gt;   // global time
 		<transition>
 			<source ref="id3"/>
 			<target ref="id2"/>
-			<label kind="synchronisation" x="-76" y="34">advance_principal</label>
+			<label kind="synchronisation" x="-76" y="34">advance_principal?</label>
 		</transition>
 		<transition>
 			<source ref="id1"/>
 			<target ref="id3"/>
-			<label kind="guard" x="-204" y="-59">gt == 0</label>
-			<label kind="synchronisation" x="-221" y="-42">request_money</label>
+			<label kind="guard" x="-51" y="-127">gt == 0</label>
+			<label kind="synchronisation" x="-68" y="-110">request_money!</label>
 		</transition>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="-391" y="-51">sign_contract</label>
+			<label kind="synchronisation" x="-51" y="-255">sign_contract!</label>
 		</transition>
 	</template>
 	<template>
 		<name>Lender</name>
-		<location id="id8" x="-391" y="0">
-			<name x="-401" y="-34">Start</name>
+		<location id="id9" x="-17" y="-306">
+			<name x="-27" y="-340">Start</name>
 		</location>
-		<location id="id9" x="-229" y="0">
-			<name x="-239" y="-34">Active_contract</name>
+		<location id="id10" x="-17" y="-153">
+			<name x="-8" y="-195">Active_contract</name>
 		</location>
-		<location id="id10" x="-17" y="0">
+		<location id="id11" x="-17" y="0">
 			<name x="-27" y="-34">Principal_requested</name>
 		</location>
-		<location id="id11" x="-17" y="161">
+		<location id="id12" x="-17" y="161">
 			<name x="0" y="153">Principal_received</name>
 		</location>
-		<location id="id12" x="-17" y="314">
+		<location id="id13" x="-17" y="314">
 			<name x="8" y="306">Repayment_partial</name>
 		</location>
-		<location id="id13" x="-17" y="433">
+		<location id="id14" x="-17" y="433">
 			<name x="8" y="425">Repayment_complete</name>
 		</location>
-		<init ref="id8"/>
+		<location id="id15" x="-246" y="-153">
+			<name x="-297" y="-187">Term_no_money</name>
+		</location>
+		<location id="id16" x="-246" y="0">
+			<name x="-246" y="-34">Default_lender</name>
+		</location>
+		<init ref="id9"/>
+		<transition>
+			<source ref="id11"/>
+			<target ref="id16"/>
+			<label kind="guard" x="-119" y="-34">gt &gt; 1</label>
+		</transition>
+		<transition>
+			<source ref="id10"/>
+			<target ref="id15"/>
+			<label kind="guard" x="-119" y="-178">gt &gt; 0</label>
+		</transition>
+		<transition>
+			<source ref="id13"/>
+			<target ref="id14"/>
+			<label kind="guard" x="0" y="340">gt == 730</label>
+			<label kind="synchronisation" x="0" y="365">repay525!</label>
+		</transition>
 		<transition>
 			<source ref="id12"/>
 			<target ref="id13"/>
-			<label kind="synchronisation" x="0" y="365">repay2</label>
+			<label kind="guard" x="8" y="204">gt == 365</label>
+			<label kind="synchronisation" x="8" y="229">repay550!</label>
 		</transition>
 		<transition>
 			<source ref="id11"/>
 			<target ref="id12"/>
-			<label kind="synchronisation" x="-17" y="220">repay1</label>
+			<label kind="guard" x="-17" y="46">gt &lt;= 1</label>
+			<label kind="synchronisation" x="-17" y="63">advance_principal!</label>
 		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id11"/>
-			<label kind="guard" x="-17" y="46">gt &lt;= 1</label>
-			<label kind="synchronisation" x="-17" y="63">advance_principal</label>
+			<label kind="synchronisation" x="0" y="-93">request_money?</label>
 		</transition>
 		<transition>
 			<source ref="id9"/>
 			<target ref="id10"/>
-			<label kind="synchronisation" x="-178" y="-25">request_money</label>
-		</transition>
-		<transition>
-			<source ref="id8"/>
-			<target ref="id9"/>
-			<label kind="synchronisation" x="-348" y="-25">sign_contract</label>
+			<label kind="synchronisation" x="0" y="-255">sign_contract?</label>
 		</transition>
 	</template>
 	<system>// Place template instantiations here.
