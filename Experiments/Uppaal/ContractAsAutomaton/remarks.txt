@@ -42,3 +42,12 @@ Pitfalls / potential "errors" in the contract:
 * Potential infinite loop around Payment 1 accruing, with deadlock if past
   1/6/2015. 
 
+
+Formalization and correctness statements:
+
+* It would be nice to express a property like: "even if a default of the
+  borrower occurs, it is still possible to attain complete repayment", but
+  this would require a nested quantification like:
+  A [] (B.Default_borrower1 -> E <> B.Repayment_complete)
+  which is not expressible in Uppaal
+
